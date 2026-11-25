@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>資料轉換</title>
+  <link rel="stylesheet" href="tooldock://sdk/ui-base.css">
+  <style>
+    html, body { height: 100%; }
+    body { display: grid; grid-template-columns: 230px minmax(0, 1fr); overflow: hidden; }
+    #list { border-right: 1px solid var(--border); overflow: auto; padding: 8px 0 16px; background: var(--bg-elevated); }
+    #search { margin: 4px 10px 8px; width: calc(100% - 20px); }
+    .g { padding: 10px 14px 4px; font-size: 11px; font-weight: 600; color: var(--fg-muted); text-transform: uppercase; letter-spacing: .04em; }
+    .c { padding: 4px 14px 4px 20px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .c:hover { background: var(--bg-hover); }
+    .c.sel { background: var(--bg-active); color: var(--fg-strong); box-shadow: inset 2px 0 var(--accent); }
+    #main { display: flex; flex-direction: column; min-height: 0; padding: 16px 20px; gap: 12px; }
+    #head h2 { margin: 0; }
+    #opts { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+    #opts label { display: flex; align-items: center; gap: 6px; }
+    #panes { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; min-height: 0; }
+    .pane { display: flex; flex-direction: column; min-height: 0; gap: 6px; }
+    .pane .bar { display: flex; align-items: center; gap: 6px; }
+    .pane .bar b { color: var(--fg-strong); font-size: 12px; margin-right: auto; }
+    .pane .bar button { min-height: 22px; padding: 1px 8px; font-size: 12px; }
+    textarea { flex: 1; resize: none; min-height: 120px; line-height: 1.5; }
+    #out { background: var(--bg-sunken); }
+    #out.error { color: var(--err); }
+    #foot { font-size: 11px; color: var(--fg-faint); min-height: 16px; }
+    @media (max-width: 800px) { #panes { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <aside id="list"><input id="search" placeholder="搜尋轉換器…"></aside>
+  <main id="main">
+    <div id="head"><h2 id="title">載入中…</h2><div class="muted" id="desc"></div></div>
+    <div id="opts"></div>
+    <div id="panes">
+      <div class="pane">
+        <div class="bar"><b>輸入</b>
+          <button class="ghost" id="sample">範例</button>
+          <button class="ghost" id="open">開啟檔案</button>
+          <button class="ghost" id="clear">清除</button>
+        </div>
+        <textarea id="in" spellcheck="false" placeholder="在此貼上要轉換的內容"></textarea>
+      </div>
+      <div class="pane">
+        <div class="bar"><b>輸出</b>
+          <button class="ghost" id="swap" title="把輸出移到輸入">⇆ 交換</button>
+          <button class="ghost" id="copy">複製</button>
+          <button class="ghost" id="save">另存</button>
+          <button class="ghost" id="share" title="把輸出分享給其他工具（資料交換）" hidden>⇄ 分享</button>
+          <button id="run">轉換</button>
+        </div>
+        <textarea id="out" spellcheck="false" readonly></textarea>
+      </div>
+    </div>
+    <div id="foot"></div>
+  </main>
+
+  <script src="tooldock://sdk/ui-sdk.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

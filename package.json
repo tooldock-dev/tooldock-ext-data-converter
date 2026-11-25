@@ -1,0 +1,88 @@
+{
+  "name": "data-converter",
+  "version": "1.2.0",
+  "description": "常見資料轉換小工具",
+  "main": "backend/index.js",
+  "author": "ToolDock",
+  "private": true,
+  "scripts": {
+    "dev": "tooldock-ext dev",
+    "debug": "tooldock-ext dev --inspect",
+    "validate": "tooldock-ext validate",
+    "test": "node --test test/*.test.js",
+    "pack": "tooldock-ext pack",
+    "install-local": "tooldock-ext install"
+  },
+  "tooldock": {
+    "id": "data-converter",
+    "displayName": "資料轉換工具",
+    "description": "JSON / YAML / CSV / Base64 / 時間戳 / 民國年 / 雜湊 / JWT 等常用轉換",
+    "icon": "🔁",
+    "engine": "^1.4.0",
+    "activationEvents": [],
+    "contributes": {
+      "views": [
+        {
+          "id": "dataConverter.main",
+          "title": "資料轉換",
+          "icon": "🔁",
+          "entry": "ui/index.html"
+        }
+      ],
+      "commands": [
+        {
+          "id": "dataConverter.open",
+          "title": "資料轉換：開啟工具"
+        }
+      ],
+      "configuration": {
+        "dataConverter.indent": {
+          "type": "number",
+          "default": 2,
+          "title": "JSON / YAML 縮排",
+          "description": "格式化時使用的空白數"
+        },
+        "dataConverter.liveConvert": {
+          "type": "boolean",
+          "default": true,
+          "title": "即時轉換",
+          "description": "輸入內容時自動轉換（關閉後需手動按「轉換」）"
+        }
+      },
+      "exchange": {
+        "imports": [
+          {
+            "type": "tooldock.text",
+            "handler": "importText",
+            "title": "在資料轉換中開啟",
+            "view": "dataConverter.main"
+          },
+          {
+            "type": "tooldock.table",
+            "handler": "importTable",
+            "title": "在資料轉換中開啟（CSV）",
+            "view": "dataConverter.main"
+          }
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tooldock-cli": "^1.3.1",
+    "tooldock-types": "^1.5.0"
+  },
+  "keywords": [
+    "tooldock",
+    "data-converter",
+    "json",
+    "yaml",
+    "csv",
+    "base64",
+    "roc-date",
+    "converter"
+  ]
+}
